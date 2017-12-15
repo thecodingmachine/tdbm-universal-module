@@ -2,7 +2,6 @@
 
 namespace TheCodingMachine\TDBM\DI;
 
-
 use Doctrine\Common\Cache\Cache;
 use Doctrine\DBAL\Connection;
 use Interop\Container\Factories\Alias;
@@ -34,7 +33,8 @@ class TdbmServiceProvider implements ServiceProviderInterface
      */
     public function __construct(?string $serviceProviderConfigurationFile = null)
     {
-        $this->serviceProviderConfigurationFile = $serviceProviderConfigurationFile ?: __DIR__.'/../../../../../tdbmServiceProviderConfigStore.php';
+        $this->serviceProviderConfigurationFile = $serviceProviderConfigurationFile
+            ?: __DIR__.'/../../../../../tdbmServiceProviderConfigStore.php';
     }
 
     /**
@@ -82,7 +82,8 @@ class TdbmServiceProvider implements ServiceProviderInterface
      * About factories parameters:
      *
      * - the container (instance of `Psr\Container\ContainerInterface`)
-     * - the entry to be extended. If the entry to be extended does not exist and the parameter is nullable, `null` will be passed.
+     * - the entry to be extended. If the entry to be extended does not exist and the parameter is nullable, `null`
+     *   will be passed.
      *
      * @return callable[]
      */
@@ -136,7 +137,9 @@ class TdbmServiceProvider implements ServiceProviderInterface
         $mapper = ClassNameMapper::createFromComposerFile();
         $namespaces = $mapper->getManagedNamespaces();
         if (empty($namespaces)) {
-            throw new TdbmServiceProviderException('You composer.json file does not declare any PSR-0 or PSR-4 namespace.');
+            throw new TdbmServiceProviderException(
+                'You composer.json file does not declare any PSR-0 or PSR-4 namespace.'
+            );
         }
 
         self::$rootNamespace = trim($namespaces[0], '\\');
@@ -164,7 +167,8 @@ class TdbmServiceProvider implements ServiceProviderInterface
 
         $dumpedConfig = $this->getDumpedConfig();
         if ($dumpedConfig !== null) {
-            // For performance reasons, we prefer to get beanNamespace and daoNamespace from the dumped config (this avoids reading the composer.json file to find the namespace).
+            // For performance reasons, we prefer to get beanNamespace and daoNamespace from the dumped config
+            // (this avoids reading the composer.json file to find the namespace).
             $beanNamespace = $dumpedConfig->getBeanNamespace();
             $daoNamespace = $dumpedConfig->getDaoNamespace();
         } else {
@@ -172,7 +176,16 @@ class TdbmServiceProvider implements ServiceProviderInterface
             $daoNamespace = $container->get('tdbm.daoNamespace');
         }
 
-        return new Configuration($beanNamespace, $daoNamespace, $connection, $namingStrategy, $cache, null, $logger, $generatorListeners);
+        return new Configuration(
+            $beanNamespace,
+            $daoNamespace,
+            $connection,
+            $namingStrategy,
+            $cache,
+            null,
+            $logger,
+            $generatorListeners
+        );
     }
 
     /**

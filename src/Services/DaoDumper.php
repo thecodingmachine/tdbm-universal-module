@@ -42,7 +42,8 @@ class DaoDumper implements GeneratorListenerInterface
      * @param ConfigurationInterface $configuration
      * @param string[] $daos
      */
-    private function dumpFile(ConfigurationInterface $configuration, array $daos): void {
+    private function dumpFile(ConfigurationInterface $configuration, array $daos): void
+    {
         $fileSystem = new Filesystem();
         $exportedDaoNamespace = var_export($configuration->getDaoNamespace(), true);
         $exportedBeanNamespace = var_export($configuration->getBeanNamespace(), true);
