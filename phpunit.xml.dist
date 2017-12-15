@@ -1,0 +1,51 @@
+<phpunit
+	bootstrap="vendor/autoload.php"
+	colors="true"
+	backupGlobals="false"
+	backupStaticAttributes="false"
+	beStrictAboutChangesToGlobalState="true"
+	beStrictAboutOutputDuringTests="true"
+	beStrictAboutTestsThatDoNotTestAnything="true"
+	beStrictAboutTodoAnnotatedTests="true"
+	failOnRisky="true"
+	failOnWarning="true"
+	convertErrorsToExceptions="true"
+	convertNoticesToExceptions="true"
+	convertWarningsToExceptions="true"
+>
+	<testsuites>
+		<testsuite name="Test suite">
+			<directory>./tests/</directory>
+		</testsuite>
+	</testsuites>
+	<filter>
+		<whitelist>
+			<directory suffix=".php">./src</directory>
+			<exclude>
+				<directory suffix=".php">src/Daos</directory>
+				<directory suffix=".php">src/Beans</directory>
+			</exclude>
+		</whitelist>
+	</filter>
+
+	<php>
+		<!-- "Real" test database -->
+		<var name="db_host" value="localhost" />
+		<var name="db_username" value="root" />
+		<var name="db_password" value="" />
+		<var name="db_name" value="test" />
+		<var name="db_port" value="3306"/>
+		<var name="db_driver" value="pdo_mysql"/>
+	</php>
+
+	<logging>
+		<log
+			type="coverage-text"
+			target="php://stdout"
+			showUncoveredFiles="true"
+			showOnlySummary="true"
+		/>
+		<log type="coverage-html" target="build/coverage" charset="UTF-8" yui="true" highlight="true"/>
+		<log type="coverage-clover" target="build/logs/clover.xml"/>
+	</logging>
+</phpunit>

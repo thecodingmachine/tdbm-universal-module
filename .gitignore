@@ -1,0 +1,7 @@
+/vendor
+/composer.lock
+/build
+/src/Beans
+/src/Daos
+/.discovery
+/tests/Fixtures/tdbmServiceProviderConfigStore.php
