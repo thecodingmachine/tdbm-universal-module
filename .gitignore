@@ -5,3 +5,4 @@
 /src/Daos
 /.discovery
 /tests/Fixtures/tdbmServiceProviderConfigStore.php
+/phpunit.xml
