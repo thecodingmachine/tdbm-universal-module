@@ -16,6 +16,7 @@ use TheCodingMachine\TDBM\Configuration;
 use TheCodingMachine\TDBM\Services\DaoDumper;
 use TheCodingMachine\TDBM\TDBMService;
 use TheCodingMachine\TDBM\Utils\DefaultNamingStrategy;
+use TheCodingMachine\TDBM\Utils\GeneratorListenerInterface;
 use TheCodingMachine\TDBM\Utils\NamingStrategyInterface;
 
 class TdbmServiceProvider implements ServiceProviderInterface
@@ -57,6 +58,7 @@ class TdbmServiceProvider implements ServiceProviderInterface
             'tdbm.beanNamespace' => [__CLASS__, 'getBeanNamespace'],
             Configuration::class => [$this, 'getConfiguration'],
             TDBMService::class => [__CLASS__, 'getTdbmService'],
+            GeneratorListenerInterface::class.'[]' => [__CLASS__, 'getGeneratorListeners'],
         ];
 
         $dumpedConfig = $this->getDumpedConfig();
@@ -155,7 +157,7 @@ class TdbmServiceProvider implements ServiceProviderInterface
         $namingStrategy = $container->get(NamingStrategyInterface::class);
         $cache = $container->get(Cache::class);
         $logger = $container->has(LoggerInterface::class) ? $container->get(LoggerInterface::class) : null;
-        $daoDumper = $container->get(DaoDumper::class);
+        $generatorListeners = $container->get(GeneratorListenerInterface::class.'[]');
 
         $dumpedConfig = $this->getDumpedConfig();
         if ($dumpedConfig !== null) {
@@ -167,7 +169,15 @@ class TdbmServiceProvider implements ServiceProviderInterface
             $daoNamespace = $container->get('tdbm.daoNamespace');
         }
 
-        return new Configuration($beanNamespace, $daoNamespace, $connection, $namingStrategy, $cache, null, $logger, [$daoDumper]);
+        return new Configuration($beanNamespace, $daoNamespace, $connection, $namingStrategy, $cache, null, $logger, $generatorListeners);
+    }
+
+    /**
+     * @return GeneratorListenerInterface[]
+     */
+    public static function getGeneratorListeners(ContainerInterface $container): array
+    {
+        return [$container->get(DaoDumper::class)];
     }
 
     public static function getTdbmService(ContainerInterface $container): TDBMService
