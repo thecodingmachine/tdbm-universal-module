@@ -1,5 +1,11 @@
-#parameters:
-#    ignoreErrors:
+parameters:
+    ignoreErrors:
+     - "#Call to an undefined method object::getFactories#"
+     - "#TdbmServiceProvider::getDumpedConfig#"
+     - "#Call to an undefined method object::#"
+    excludes_analyse:
+     - %rootDir%/../../../src/Daos/*
+     - %rootDir%/../../../src/Beans/*
 
 includes:
     - vendor/thecodingmachine/phpstan-strict-rules/phpstan-strict-rules.neon

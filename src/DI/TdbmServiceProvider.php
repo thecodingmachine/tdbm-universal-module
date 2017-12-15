@@ -95,6 +95,9 @@ class TdbmServiceProvider implements ServiceProviderInterface
 
     private $config;
 
+    /**
+     * @return object|null
+     */
     private function getDumpedConfig()
     {
         if ($this->config === false) {

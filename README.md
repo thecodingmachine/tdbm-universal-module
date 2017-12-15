@@ -4,9 +4,9 @@
 [![Build Status](https://travis-ci.org/thecodingmachine/tdbm-universal-module.svg?branch=master)](https://travis-ci.org/thecodingmachine/tdbm-universal-module)
 [![Coverage Status](https://coveralls.io/repos/thecodingmachine/tdbm-universal-module/badge.svg?branch=master&service=github)](https://coveralls.io/github/thecodingmachine/tdbm-universal-module?branch=master)
 
-# XXX universal module
+# TDBM universal module
 
-This package integrates XXX in any [container-interop](https://github.com/container-interop/service-provider) compatible framework/container.
+This package integrates TDBM in any [container-interop](https://github.com/container-interop/service-provider) compatible framework/container.
 
 ## Installation
 
